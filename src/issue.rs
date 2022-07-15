@@ -98,4 +98,17 @@ impl Activity {
   pub fn remove_issue(&mut self, issue_index: usize) {
     self.issues.swap_remove(issue_index);
   }
+
+  pub fn serialize(self) {
+    println!("[");
+    for issue in self.issues {
+      println!("\t{{");
+      println!("\t\ttitle: {}", issue.title);
+      println!("\t\tdescription: {}", issue.description);
+      println!("\t\ttime_spent: {}", issue.time_spent);
+      println!("\t\tdate: {}", issue.date);
+      println!("}},");
+    }
+    println!("]")
+  }
 }
