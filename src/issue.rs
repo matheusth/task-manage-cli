@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -58,6 +60,7 @@ mod tests {
   }
 }
 
+#[derive(Serialize, Deserialize)]
 pub struct Issue {
   title: String,
   description: String,
@@ -76,6 +79,7 @@ impl Issue {
   }
 }
 
+#[derive(Serialize, Deserialize)]
 pub struct Activity {
   category: String,
   description: String,
@@ -99,16 +103,10 @@ impl Activity {
     self.issues.swap_remove(issue_index);
   }
 
-  pub fn serialize(self) {
-    println!("[");
-    for issue in self.issues {
-      println!("\t{{");
-      println!("\t\ttitle: {}", issue.title);
-      println!("\t\tdescription: {}", issue.description);
-      println!("\t\ttime_spent: {}", issue.time_spent);
-      println!("\t\tdate: {}", issue.date);
-      println!("}},");
-    }
-    println!("]")
+  pub fn print(&self) {
+    println!(
+      "{}",
+      serde_json::to_string(&self).expect("Could not serialize activity")
+    );
   }
 }

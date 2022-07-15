@@ -1,28 +1,51 @@
 pub mod issue;
 
 use issue::{Activity, Issue};
+use serde::{Deserialize, Serialize};
+use serde_json;
+use std::error::Error;
+use std::io::Write;
 
 fn main() {
-    let issue_one = Issue::new(
-        String::from("test"),
-        String::from("lorem ipsum dolor sit ammet"),
-        14.2,
-        String::from("22/07/1999"),
-    );
-    let issue_two = Issue::new(
-        String::from("te"),
-        String::from("Nova senha para o email profsubstituto.tri@ifgoiano.edu.br. Sou presidente da comissão de organização de processo seletivo e preciso dela para ter acesso aos documentos dos candidatos."),
-        14.2,
-        String::from("22/07/1999"),
-    );
+    let mut activities: std::vec::Vec<Activity> = std::vec::Vec::new();
 
-    let mut activity = Activity::new(
-        String::from("Atendimento ao Usúrario"),
-        String::from("descrição"),
-        40.0,
-    );
+    loop {
+        if !handle_command(&mut activities) {
+            break;
+        }
+    }
+    let data = serde_json::to_string(&activities).unwrap();
+    println!("{}", data);
+}
 
-    activity.add_issue(issue_one);
-    activity.add_issue(issue_two);
-    activity.serialize();
+fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
+    let opcao = get_input("Commando >> ").expect("Failed to read command");
+    match opcao.as_str() {
+        "criar atividade" => match create_activity() {
+            Ok(activity) => {
+                activities.push(activity);
+                true
+            }
+            _ => false,
+        },
+        "sair" => false,
+        _ => true,
+    }
+}
+fn create_activity() -> Result<Activity, Box<dyn Error>> {
+    let category = get_input("Categoria: ")?;
+    let description = get_input("Descrição: ")?;
+    let planned_time = get_input("Tempo previsto: ")?.parse::<f32>()?;
+
+    Ok(Activity::new(category, description, planned_time))
+}
+
+fn get_input(message: &str) -> std::io::Result<String> {
+    let mut line = String::new();
+
+    print!("{}", message);
+    std::io::stdout().flush().expect("Failed to flush stdout");
+    std::io::stdin().read_line(&mut line)?;
+
+    Ok(String::from(line.trim()))
 }
