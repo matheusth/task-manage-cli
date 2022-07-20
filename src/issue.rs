@@ -81,9 +81,9 @@ impl Issue {
 
 #[derive(Serialize, Deserialize)]
 pub struct Activity {
-  category: String,
-  description: String,
-  planned_time: f32,
+  pub category: String,
+  pub description: String,
+  pub planned_time: f32,
   issues: std::vec::Vec<Issue>,
 }
 
