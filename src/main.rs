@@ -33,7 +33,7 @@ fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
             }
             _ => false,
         },
-        "create issue" => {
+        "criar issue" => {
             let activities_iter = activities.into_iter();
             for (index, activity) in activities_iter.enumerate() {
                 println!(
@@ -68,8 +68,8 @@ fn create_activity() -> Result<Activity, Box<dyn Error>> {
 fn create_issue(activity: &mut Activity) -> Result<(), Box<dyn Error>> {
     let title = get_input("Title:")?;
     let description = get_input("Descrição: ")?;
-    let time_spent = get_input("Tempo previsto")?.parse::<f32>()?;
-    let date = get_input("Data: ")?;
+    let time_spent = get_input("Tempo gasto: ")?.parse::<f32>()?;
+    let date = get_input("Data de execução: ")?;
     activity.add_issue(Issue::new(title, description, time_spent, date));
 
     Ok(())
