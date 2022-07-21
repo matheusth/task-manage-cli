@@ -13,5 +13,7 @@ Um simples gerenciador de tarefas e entregas que eu criei para meu proprio uso.
 Criar uma nova atividade.
 ### `comando >> add tarefa`
 Adiciona uma tarefa a uma atividade.
+### `salvar`
+Salva as tarefas para o arquivo data.json.
 ### `sair`
 Encerra o programa e salva o estado atual.

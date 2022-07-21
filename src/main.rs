@@ -3,7 +3,6 @@ pub mod issue;
 
 use archive::*;
 use issue::{Activity, Issue};
-use serde_json;
 use std::error::Error;
 use std::io::Write;
 
@@ -16,9 +15,7 @@ fn main() {
             break;
         }
     }
-    let data = serde_json::to_string(&activities).unwrap();
-    println!("{}", data);
-    save_to_file(data).unwrap();
+    save_to_file(&activities).unwrap();
 }
 
 fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
@@ -52,6 +49,10 @@ fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
                 _ => false,
             }
         }
+        "salvar" => match save_to_file(&activities) {
+            Ok(_) => true,
+            _ => false,
+        },
         "sair" => false,
         _ => true,
     }

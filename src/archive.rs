@@ -19,9 +19,9 @@ pub fn open_or_create_file(path: &str) -> std::io::Result<File> {
   Ok(file)
 }
 
-pub fn save_to_file(data: String) -> std::io::Result<()> {
+pub fn save_to_file(activities: &std::vec::Vec<Activity>) -> std::io::Result<()> {
   let mut file = open_or_create_file("data.json")?;
-
+  let data = serialize_json(activities)?;
   write!(file, "{}", data).unwrap();
 
   Ok(())
@@ -34,4 +34,8 @@ pub fn load_from_file() -> Result<std::vec::Vec<Activity>, Box<dyn Error>> {
   file.read_to_string(&mut json_data)?;
   let activities: std::vec::Vec<Activity> = serde_json::from_str(json_data.as_str())?;
   Ok(activities)
+}
+
+fn serialize_json(activities: &std::vec::Vec<Activity>) -> Result<String, serde_json::Error> {
+  serde_json::to_string(activities)
 }
