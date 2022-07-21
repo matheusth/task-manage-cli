@@ -22,3 +22,5 @@ Encerra o programa e salva o estado atual.
 Remove uma atividade.
 ### `listar atividades`
 Comando para listar todas as atividades cadastradas.
+### `exportar html`
+Comando para gerar arquivos html para uma determinada action.
