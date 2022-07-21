@@ -35,6 +35,10 @@ fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
             print_tasks(&activities);
             true
         }
+        "exportar html" => match export_to_html(&activities[select_activity()]) {
+            Ok(_) => true,
+            _ => false,
+        },
         "add tarefa" => {
             print_tasks(&activities);
             match create_issue(&mut activities[select_activity()]) {

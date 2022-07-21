@@ -11,7 +11,7 @@ pub fn open_or_create_file(path: &str) -> std::io::Result<File> {
     .open(path)
     .unwrap_or_else(|error| {
       if error.kind() == ErrorKind::NotFound {
-        File::create("data.json").unwrap_or_else(|error| panic!("error creating file: {:?}", error))
+        File::create(path).unwrap_or_else(|error| panic!("error creating file: {:?}", error))
       } else {
         panic!("Could not read from file");
       }
@@ -39,4 +39,42 @@ pub fn load_from_file() -> Result<std::vec::Vec<Activity>, Box<dyn Error>> {
 
 fn serialize_json(activities: &std::vec::Vec<Activity>) -> Result<String, serde_json::Error> {
   serde_json::to_string(activities)
+}
+
+pub fn generate_html(activity: &Activity) -> String {
+  let mut html_output = String::from(
+    r#"
+  <table border="1">
+  <tr>
+  <th>titulo</th>
+  <th>descrição</th>
+  <th>Tempo gasto</th>
+  <th>data</td>
+  </tr>
+  "#,
+  );
+  for issue in &activity.issues {
+    let line = format!(
+      r#"
+        <tr>
+          <td>{}</td>
+          <td>{}</td>
+          <td>{}</td>
+          <td>{}</td>
+        </tr>
+    "#,
+      issue.title, issue.description, issue.time_spent, issue.date
+    );
+    html_output.push_str(line.as_str());
+  }
+  html_output.push_str("</table>");
+
+  return html_output;
+}
+pub fn export_to_html(activity: &Activity) -> std::io::Result<()> {
+  let file_name = format!("{}.html", activity.description);
+  let mut html_file = open_or_create_file(file_name.as_str())?;
+  let html = generate_html(activity);
+  write!(&mut html_file, "{}", html)?;
+  Ok(())
 }

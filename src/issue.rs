@@ -63,9 +63,9 @@ mod tests {
 #[derive(Serialize, Deserialize)]
 pub struct Issue {
   pub title: String,
-  description: String,
-  time_spent: f32,
-  date: String,
+  pub description: String,
+  pub time_spent: f32,
+  pub date: String,
 }
 
 impl Issue {
