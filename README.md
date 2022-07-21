@@ -17,3 +17,5 @@ Adiciona uma tarefa a uma atividade.
 Salva as tarefas para o arquivo data.json.
 ### `sair`
 Encerra o programa e salva o estado atual.
+### `remover atividade`
+Remove uma atividade

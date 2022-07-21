@@ -21,6 +21,7 @@ pub fn open_or_create_file(path: &str) -> std::io::Result<File> {
 
 pub fn save_to_file(activities: &std::vec::Vec<Activity>) -> std::io::Result<()> {
   let mut file = open_or_create_file("data.json")?;
+  file.set_len(0)?;
   let data = serialize_json(activities)?;
   write!(file, "{}", data).unwrap();
 

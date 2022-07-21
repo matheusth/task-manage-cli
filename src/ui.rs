@@ -22,6 +22,13 @@ pub fn create_activity() -> Result<Activity, Box<dyn Error>> {
   Ok(Activity::new(category, description, planned_time))
 }
 
+pub fn select_activity() -> usize {
+  return get_input("Índice da atividade: ")
+    .unwrap()
+    .parse::<usize>()
+    .unwrap();
+}
+
 pub fn create_issue(activity: &mut Activity) -> Result<(), Box<dyn Error>> {
   let title = get_input("Title:")?;
   let description = get_input("Descrição: ")?;

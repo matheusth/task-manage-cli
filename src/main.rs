@@ -7,9 +7,7 @@ use issue::Activity;
 use ui::*;
 
 fn main() {
-    let mut activities: std::vec::Vec<Activity> = load_from_file().unwrap_or_else(|error| {
-        panic!("Faield on loading file!\nError: {}", error);
-    });
+    let mut activities: std::vec::Vec<Activity> = load_from_file().unwrap_or(std::vec::Vec::new());
     loop {
         if !handle_command(&mut activities) {
             break;
@@ -19,8 +17,8 @@ fn main() {
 }
 
 fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
-    let opcao = get_input("Commando >> ").expect("Failed to read command");
-    match opcao.as_str() {
+    let option = get_input("Commando >> ").expect("Failed to read command");
+    match option.as_str() {
         "criar atividade" => match create_activity() {
             Ok(activity) => {
                 activities.push(activity);
@@ -28,13 +26,14 @@ fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
             }
             _ => false,
         },
+        "remover atividade" => {
+            print_tasks(&activities);
+            activities.remove(select_activity());
+            true
+        }
         "add tarefa" => {
             print_tasks(&activities);
-            let index = get_input("Inidice da atividade: ")
-                .unwrap()
-                .parse::<usize>()
-                .unwrap();
-            match create_issue(&mut activities[index]) {
+            match create_issue(&mut activities[select_activity()]) {
                 Ok(_) => true,
                 _ => false,
             }
