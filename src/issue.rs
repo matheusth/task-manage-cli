@@ -31,7 +31,7 @@ mod tests {
       String::from("22/07/2021"),
     );
     let mut activity = Activity::new(
-      String::from("Atendimento ao Usúrario"),
+      String::from("Atendimento ao Usuário"),
       String::from("descrição"),
       40.0,
     );
@@ -50,7 +50,7 @@ mod tests {
       String::from("22/07/2021"),
     );
     let mut activity = Activity::new(
-      String::from("Atendimento ao Usúrario"),
+      String::from("Atendimento ao Usuário"),
       String::from("descrição"),
       40.0,
     );
@@ -62,7 +62,7 @@ mod tests {
 
 #[derive(Serialize, Deserialize)]
 pub struct Issue {
-  title: String,
+  pub title: String,
   description: String,
   time_spent: f32,
   date: String,
@@ -84,7 +84,7 @@ pub struct Activity {
   pub category: String,
   pub description: String,
   pub planned_time: f32,
-  issues: std::vec::Vec<Issue>,
+  pub issues: std::vec::Vec<Issue>,
 }
 
 impl Activity {

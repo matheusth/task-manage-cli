@@ -6,11 +6,15 @@ pub fn print_tasks(activities: &std::vec::Vec<Activity>) {
   let activities_iter = activities.into_iter();
   for (index, activity) in activities_iter.enumerate() {
     println!(
-      "indice: {:<20}categoria: {:<50}Carga Horária: {:4.2}",
+      "indice: {:<20}categoria: {:<40}Carga Horária: {:4.2}",
       index, activity.category, activity.planned_time
     );
     println!("descrição: {}", activity.description);
-    println!("==========================================================================");
+    print!("tarefas: ");
+    for issue in &activity.issues {
+      print!("{}; ", issue.title);
+    }
+    println!("\n-------------------------------------------------------------------------------------------------------");
   }
 }
 

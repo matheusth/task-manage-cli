@@ -31,6 +31,10 @@ fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
             activities.remove(select_activity());
             true
         }
+        "listar atividades" => {
+            print_tasks(&activities);
+            true
+        }
         "add tarefa" => {
             print_tasks(&activities);
             match create_issue(&mut activities[select_activity()]) {

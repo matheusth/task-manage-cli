@@ -18,4 +18,6 @@ Salva as tarefas para o arquivo data.json.
 ### `sair`
 Encerra o programa e salva o estado atual.
 ### `remover atividade`
-Remove uma atividade
+Remove uma atividade.
+### `listar atividades`
+Comando para listar todas as atividades cadastradas.
