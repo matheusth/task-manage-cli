@@ -6,7 +6,8 @@ Um simples gerenciador de tarefas e entregas que eu criei para meu próprio uso.
 - [x] Uma tarefa não pode ser criada sem informar uma atividade.
 - [x] Salva as atividades e suas tarefas em um arquivo json.
 - [ ] Gera uma tabela html com os dados das atividades e tarefas.
-- [ ] Atividades podem ser removidas assim como tarefas.
+- [x] Atividades podem ser removidas.
+- [ ] Tarefas podem ser removidas.
 
 ## Comandos
 ### `comando >> criar atividade`
