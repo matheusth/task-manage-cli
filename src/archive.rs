@@ -44,7 +44,7 @@ fn serialize_json(activities: &std::vec::Vec<Activity>) -> Result<String, serde_
 pub fn generate_html(activity: &Activity) -> String {
   let mut html_output = String::from(
     r#"
-  <table border="1">
+  <table border="1" style="max-width: 23cm;">
   <tr>
   <th>titulo</th>
   <th>descrição</th>
