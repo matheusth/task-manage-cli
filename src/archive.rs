@@ -78,3 +78,4 @@ pub fn export_to_html(activity: &Activity) -> std::io::Result<()> {
   write!(&mut html_file, "{}", html)?;
   Ok(())
 }
+teste
