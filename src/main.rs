@@ -54,4 +54,3 @@ fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {
         _ => true,
     }
 }
-teste2
