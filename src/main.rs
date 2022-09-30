@@ -1,4 +1,5 @@
 pub mod archive;
+pub mod cli;
 pub mod issue;
 pub mod ui;
 
