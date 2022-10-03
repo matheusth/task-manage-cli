@@ -4,17 +4,29 @@ pub mod issue;
 pub mod ui;
 
 use archive::*;
-use issue::Activity;
+use clap::Parser;
+use cli::*;
+use issue::{Activity, WorkPlan};
 use ui::*;
 
 fn main() {
-    let mut activities: std::vec::Vec<Activity> = load_from_file().unwrap_or(std::vec::Vec::new());
-    loop {
-        if !handle_command(&mut activities) {
-            break;
-        }
-    }
-    save_to_file(&activities).unwrap();
+    let mut workplans: Vec<WorkPlan> = Vec::new();
+    let args = CliArgs::parse();
+    match args.entity {
+        Entity::WorkPlan(action) => match action {
+            WorkPlanSubCommands::Create(workplan_info) => {
+                let workplan = WorkPlan::new(
+                    workplans.len().try_into().unwrap(),
+                    workplan_info.start_date.as_str(),
+                    workplan_info.end_date.as_str(),
+                );
+
+                workplans.push(workplan);
+            }
+            _ => panic!("Not implemented yet"),
+        },
+    };
+    save_to_file(&workplans);
 }
 
 fn handle_command(activities: &mut std::vec::Vec<Activity>) -> bool {

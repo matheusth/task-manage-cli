@@ -2,15 +2,18 @@ use clap::{Args, Parser, Subcommand};
 
 #[derive(Debug, Parser)]
 #[clap(author, version, about)]
-struct CliArgs {}
+pub struct CliArgs {
+    #[clap(subcommand)]
+    pub entity: Entity,
+}
 
 #[derive(Debug, Subcommand)]
-enum Entity {
+pub enum Entity {
     #[clap(subcommand)]
     WorkPlan(WorkPlanSubCommands),
 }
 #[derive(Debug, Subcommand)]
-enum WorkPlanSubCommands {
+pub enum WorkPlanSubCommands {
     Create(CreateWorkPlanArgs),
     AddActivity(AddActivityArgs),
     CancelActivity { id_workplan: u32, id_activity: u32 },
@@ -19,22 +22,22 @@ enum WorkPlanSubCommands {
 }
 
 #[derive(Debug, Args)]
-struct CreateWorkPlanArgs {
-    start_date: String,
-    end_date: String,
+pub struct CreateWorkPlanArgs {
+    pub start_date: String,
+    pub end_date: String,
 }
 
 #[derive(Debug, Args)]
-struct AddActivityArgs {
-    workplan_id: u32,
-    description: String,
-    activity_type: String,
-    carga_horaria: String,
+pub struct AddActivityArgs {
+    pub workplan_id: u32,
+    pub description: String,
+    pub activity_type: String,
+    pub carga_horaria: String,
 }
 
 #[derive(Debug, Args)]
-struct DeliverArgs {
-    delivered_at: String,
-    hours_spent: u32,
-    description: String,
+pub struct DeliverArgs {
+    pub delivered_at: String,
+    pub hours_spent: u32,
+    pub description: String,
 }
