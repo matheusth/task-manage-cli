@@ -29,12 +29,12 @@ pub fn save_to_file(activities: &std::vec::Vec<WorkPlan>) -> std::io::Result<()>
     Ok(())
 }
 
-pub fn load_from_file() -> Result<std::vec::Vec<Activity>, Box<dyn Error>> {
+pub fn load_from_file() -> Result<std::vec::Vec<WorkPlan>, Box<dyn Error>> {
     let mut json_data = String::new();
     let mut file = open_or_create_file("data.json").unwrap();
 
     file.read_to_string(&mut json_data)?;
-    let activities: std::vec::Vec<Activity> = serde_json::from_str(json_data.as_str())?;
+    let activities: std::vec::Vec<WorkPlan> = serde_json::from_str(json_data.as_str())?;
     Ok(activities)
 }
 

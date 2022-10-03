@@ -29,10 +29,10 @@ pub struct CreateWorkPlanArgs {
 
 #[derive(Debug, Args)]
 pub struct AddActivityArgs {
-    pub workplan_id: u32,
+    pub workplan_id: usize,
     pub description: String,
     pub activity_type: String,
-    pub carga_horaria: String,
+    pub carga_horaria: f32,
 }
 
 #[derive(Debug, Args)]

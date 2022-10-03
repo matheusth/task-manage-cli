@@ -100,6 +100,9 @@ impl WorkPlan {
             activities: Vec::new(),
         }
     }
+    pub fn add_activity(&mut self, activity: Activity) {
+        self.activities.push(activity);
+    }
 }
 
 #[derive(Serialize, Deserialize)]
