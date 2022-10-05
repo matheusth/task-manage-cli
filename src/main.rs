@@ -8,6 +8,7 @@ use cli::*;
 use issue::{Activity, WorkPlan};
 
 fn main() {
+    open_or_create_file("data.json").unwrap();
     let mut workplans: Vec<WorkPlan> = load_from_file().unwrap();
     let args = CliArgs::parse();
     match args.entity {
@@ -30,6 +31,10 @@ fn main() {
                 );
                 let workplan = workplans.get_mut(plan_id).unwrap();
                 workplan.add_activity(activity);
+            }
+            WorkPlanSubCommands::Close { plan_id } => {
+                let mut workplan = workplans.get_mut(plan_id).unwrap();
+                workplan.closed = true;
             }
             _ => panic!("Not implemented yet"),
         },

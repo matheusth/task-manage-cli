@@ -23,7 +23,7 @@ pub enum WorkPlanSubCommands {
     /// Cancel an activity of the work plan
     CancelActivity { id_workplan: u32, id_activity: u32 },
     /// Close a work plan who already been delivered
-    Close { id: u32 },
+    Close { plan_id: usize },
     /// Show work plans
     Show,
 }

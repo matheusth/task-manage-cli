@@ -85,6 +85,7 @@ pub struct WorkPlan {
     pub start_date: NaiveDate,
     pub end_date: NaiveDate,
     pub activities: Vec<Activity>,
+    pub closed: bool,
 }
 
 impl WorkPlan {
@@ -98,6 +99,7 @@ impl WorkPlan {
             start_date,
             end_date,
             activities: Vec::new(),
+            closed: false,
         }
     }
     pub fn add_activity(&mut self, activity: Activity) {
