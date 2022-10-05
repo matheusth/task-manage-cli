@@ -6,6 +6,7 @@ use archive::*;
 use clap::Parser;
 use cli::*;
 use issue::{Activity, WorkPlan};
+use serde_json;
 
 fn main() {
     open_or_create_file("data.json").unwrap();
@@ -35,6 +36,13 @@ fn main() {
             WorkPlanSubCommands::Close { plan_id } => {
                 let mut workplan = workplans.get_mut(plan_id).unwrap();
                 workplan.closed = true;
+            }
+            WorkPlanSubCommands::Show => {
+                for workplan in workplans.iter() {
+                    if !workplan.closed {
+                        println!("{}", serde_json::to_string(workplan).unwrap())
+                    }
+                }
             }
             _ => panic!("Not implemented yet"),
         },
