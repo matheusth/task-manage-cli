@@ -20,8 +20,6 @@ pub enum WorkPlanSubCommands {
     Create(CreateWorkPlanArgs),
     /// Add an activity to a work plan
     AddActivity(AddActivityArgs),
-    /// Cancel an activity of the work plan
-    CancelActivity { id_workplan: u32, id_activity: u32 },
     /// Close a work plan who already been delivered
     Close { plan_id: usize },
     /// Show work plans
