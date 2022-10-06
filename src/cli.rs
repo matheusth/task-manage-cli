@@ -25,7 +25,11 @@ pub enum WorkPlanSubCommands {
     /// Close a work plan who already been delivered
     Close { plan_id: usize },
     /// Show work plans
-    Show,
+    Show {
+        /// Show closed workplans
+        #[arg(short, long, default_value_t = false)]
+        closed: bool,
+    },
 }
 
 #[derive(Debug, Args)]

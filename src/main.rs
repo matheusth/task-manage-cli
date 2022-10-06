@@ -37,9 +37,12 @@ fn main() {
                 let mut workplan = workplans.get_mut(plan_id).unwrap();
                 workplan.closed = true;
             }
-            WorkPlanSubCommands::Show => {
+            WorkPlanSubCommands::Show { closed } => {
                 for workplan in workplans.iter() {
                     if !workplan.closed {
+                        println!("{}", serde_json::to_string(workplan).unwrap());
+                    }
+                    if workplan.closed && closed {
                         println!("{}", serde_json::to_string(workplan).unwrap())
                     }
                 }
