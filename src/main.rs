@@ -47,7 +47,6 @@ fn main() {
                     }
                 }
             }
-            _ => panic!("Not implemented yet"),
         },
     };
     save_to_file(&workplans).unwrap();
