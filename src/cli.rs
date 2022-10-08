@@ -18,6 +18,7 @@ pub enum Entity {
 /// Manage the activities
 #[derive(Debug, Subcommand)]
 pub enum ActivitySubCommands {
+    /// Create an activity inside a workplan
     Create(AddActivityArgs),
 }
 
