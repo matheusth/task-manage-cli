@@ -23,16 +23,6 @@ fn main() {
 
                 workplans.push(workplan);
             }
-            WorkPlanSubCommands::AddActivity(actv_args) => {
-                let plan_id = actv_args.workplan_id;
-                let activity = Activity::new(
-                    actv_args.activity_type,
-                    actv_args.description,
-                    actv_args.carga_horaria,
-                );
-                let workplan = workplans.get_mut(plan_id).unwrap();
-                workplan.add_activity(activity);
-            }
             WorkPlanSubCommands::Close { plan_id } => {
                 let mut workplan = workplans.get_mut(plan_id).unwrap();
                 workplan.closed = true;
@@ -46,6 +36,18 @@ fn main() {
                         println!("{}", serde_json::to_string(workplan).unwrap())
                     }
                 }
+            }
+        },
+        Entity::Activity(action) => match action {
+            ActivitySubCommands::Create(actv_args) => {
+                let plan_id = actv_args.workplan_id;
+                let activity = Activity::new(
+                    actv_args.activity_type,
+                    actv_args.description,
+                    actv_args.carga_horaria,
+                );
+                let workplan = workplans.get_mut(plan_id).unwrap();
+                workplan.add_activity(activity);
             }
         },
     };

@@ -11,6 +11,14 @@ pub struct CliArgs {
 pub enum Entity {
     #[clap(subcommand)]
     WorkPlan(WorkPlanSubCommands),
+    #[clap(subcommand)]
+    Activity(ActivitySubCommands),
+}
+
+/// Manage the activities
+#[derive(Debug, Subcommand)]
+pub enum ActivitySubCommands {
+    Create(AddActivityArgs),
 }
 
 /// Commands to manage workplans
@@ -19,7 +27,6 @@ pub enum WorkPlanSubCommands {
     /// Create a Work plan
     Create(CreateWorkPlanArgs),
     /// Add an activity to a work plan
-    AddActivity(AddActivityArgs),
     /// Close a work plan who already been delivered
     Close { plan_id: usize },
     /// Show work plans
