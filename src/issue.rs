@@ -105,6 +105,12 @@ impl WorkPlan {
     pub fn add_activity(&mut self, activity: Activity) {
         self.activities.push(activity);
     }
+    pub fn cancel_activity(&mut self, activity_id: u64) {
+        self.activities
+            .get_mut(activity_id as usize)
+            .unwrap()
+            .canceled = true;
+    }
 }
 
 #[derive(Serialize, Deserialize)]
@@ -113,6 +119,7 @@ pub struct Activity {
     pub description: String,
     pub planned_time: f32,
     pub issues: std::vec::Vec<Issue>,
+    pub canceled: bool,
 }
 
 impl Activity {
@@ -122,6 +129,7 @@ impl Activity {
             description,
             planned_time,
             issues: Vec::new(),
+            canceled: false,
         }
     }
     pub fn add_issue(&mut self, issue: Issue) {

@@ -20,6 +20,8 @@ pub enum Entity {
 pub enum ActivitySubCommands {
     /// Create an activity inside a workplan
     Create(AddActivityArgs),
+    /// Marks an activity as canceled
+    Cancel { workplan_id: u64, activity_id: u64 },
 }
 
 /// Commands to manage workplans

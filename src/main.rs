@@ -49,6 +49,13 @@ fn main() {
                 let workplan = workplans.get_mut(plan_id).unwrap();
                 workplan.add_activity(activity);
             }
+            ActivitySubCommands::Cancel {
+                workplan_id,
+                activity_id,
+            } => {
+                let workplan = workplans.get_mut(workplan_id as usize).unwrap();
+                workplan.cancel_activity(activity_id);
+            }
         },
     };
     save_to_file(&workplans).unwrap();
