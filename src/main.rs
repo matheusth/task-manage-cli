@@ -70,11 +70,12 @@ fn main() {
                     workplan.activities.iter().for_each(|activity| {
                         if !activity.canceled || canceled {
                             println!(
-                                "category: {}\ndescription: {}\nplanned time: {}",
-                                activity.category, activity.description, activity.planned_time
-                            )
+                                "category: {}\ndescription: {}\nplanned time: {}\ncanceled: {}",
+                                activity.category, activity.description, activity.planned_time, activity.canceled
+                            );
+
+                            println!("---------------------------------------------------------------------------");
                         }
-                    println!("---------------------------------------------------------------------------");
                     });
                 }
             }
