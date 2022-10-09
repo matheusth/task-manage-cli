@@ -22,6 +22,15 @@ pub enum ActivitySubCommands {
     Create(AddActivityArgs),
     /// Marks an activity as canceled
     Cancel { workplan_id: u64, activity_id: u64 },
+    /// Shows activities of a workplan,
+    Show {
+        /// id of the workplan to show activities
+        workplan_id: u64,
+
+        /// Enable showing canceled activities
+        #[arg(short, long, default_value_t = false)]
+        canceled: bool,
+    },
 }
 
 /// Commands to manage workplans

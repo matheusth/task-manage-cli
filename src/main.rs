@@ -38,25 +38,47 @@ fn main() {
                 }
             }
         },
-        Entity::Activity(action) => match action {
-            ActivitySubCommands::Create(actv_args) => {
-                let plan_id = actv_args.workplan_id;
-                let activity = Activity::new(
-                    actv_args.activity_type,
-                    actv_args.description,
-                    actv_args.carga_horaria,
-                );
-                let workplan = workplans.get_mut(plan_id).unwrap();
-                workplan.add_activity(activity);
+        Entity::Activity(action) => {
+            match action {
+                ActivitySubCommands::Create(actv_args) => {
+                    let plan_id = actv_args.workplan_id;
+                    let activity = Activity::new(
+                        actv_args.activity_type,
+                        actv_args.description,
+                        actv_args.carga_horaria,
+                    );
+                    let workplan = workplans.get_mut(plan_id).unwrap();
+                    workplan.add_activity(activity);
+                }
+                ActivitySubCommands::Cancel {
+                    workplan_id,
+                    activity_id,
+                } => {
+                    let workplan = workplans.get_mut(workplan_id as usize).unwrap();
+                    workplan.cancel_activity(activity_id);
+                }
+                ActivitySubCommands::Show {
+                    workplan_id,
+                    canceled,
+                } => {
+                    let workplan = workplans.get(workplan_id as usize).unwrap();
+                    println!(
+                        "start date: {}\t\t\tend_date: {}",
+                        workplan.start_date, workplan.end_date
+                    );
+                    println!("---------------------------------------------------------------------------");
+                    workplan.activities.iter().for_each(|activity| {
+                        if !activity.canceled || canceled {
+                            println!(
+                                "category: {}\ndescription: {}\nplanned time: {}",
+                                activity.category, activity.description, activity.planned_time
+                            )
+                        }
+                    println!("---------------------------------------------------------------------------");
+                    });
+                }
             }
-            ActivitySubCommands::Cancel {
-                workplan_id,
-                activity_id,
-            } => {
-                let workplan = workplans.get_mut(workplan_id as usize).unwrap();
-                workplan.cancel_activity(activity_id);
-            }
-        },
+        }
     };
     save_to_file(&workplans).unwrap();
 }
